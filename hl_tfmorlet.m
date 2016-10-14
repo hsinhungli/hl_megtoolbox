@@ -4,6 +4,8 @@ function [tf] = hl_tfmorlet(data, time, freqoi, nCycle, detrend_n)
 % time: 1D: time points of the data
 % freqoi: 1D: a vector of frequency to be analyzed
 % nCycle: 1D: the width for morelet wavelet
+% OutPut: 
+% tf: trl x fre time
 
 nfreq = length(freqoi);
 Fs = 1000 / mean(diff(time));

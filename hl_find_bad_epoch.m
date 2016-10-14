@@ -78,7 +78,7 @@ ts_out(:, bad_epochs,:) = NaN;
 nbad_epochs = sum(bad_epochs);
 badpercentage = nbad_epochs / size(ts_in,2)*100;
 disp(['bad epochs',num2str(find(bad_epochs)')]);
-fprintf('%2.2f percentage of epochs marked as bad',badpercentage);
+fprintf('%2.2f percentage of epochs marked as bad\n',badpercentage);
 
 %% Plot two visual channels again
 
