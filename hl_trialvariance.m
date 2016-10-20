@@ -19,22 +19,43 @@ nepoch = size(dataMatrix,3);
 
 fprintf('Computing variace \n')
 trial_dataMatrix = reshape(dataMatrix, nt*157, nepoch);
-trial_var        = nanvar(trial_dataMatrix,1);
-var_ub           = mean(trial_var) + std(trial_var)*var_b;
-var_lb           = mean(trial_var) - std(trial_var)*var_b;
-badEpochIdx_var  = trial_var >= var_ub | trial_var <= var_lb;
+tempMat          = trial_dataMatrix;
+trial_var        = nanvar(tempMat,1);
+var_ub           = nanmean(trial_var) + nanstd(trial_var)*var_b;
+var_lb           = nanmean(trial_var) - nanstd(trial_var)*var_b;
+badEpochIdx_var_1round  = trial_var >= var_ub | trial_var <= var_lb;
+tempMat(:,badEpochIdx_var_1round) = nan;
+trial_var        = nanvar(tempMat,1);
+var_ub           = nanmean(trial_var) + nanstd(trial_var)*var_b;
+var_lb           = nanmean(trial_var) - nanstd(trial_var)*var_b;
+badEpochIdx_var_2round  = trial_var >= var_ub | trial_var <= var_lb;
+badEpochIdx_var = badEpochIdx_var_1round | badEpochIdx_var_2round;
 
 fprintf('Computing kurtosis \n')
-trial_kur        = kurtosis(trial_dataMatrix,1);
-kur_ub        = mean(trial_kur) + std(trial_kur)*kur_b;
-kur_lb        = mean(trial_kur) - std(trial_kur)*kur_b;
-badEpochIdx_kur  = trial_kur >= kur_ub | trial_kur <= kur_lb;
+tempMat       = trial_dataMatrix;
+trial_kur     = kurtosis(tempMat,1);
+kur_ub        = nanmean(trial_kur) + nanstd(trial_kur)*kur_b;
+kur_lb        = nanmean(trial_kur) - nanstd(trial_kur)*kur_b;
+badEpochIdx_kur_1round  = trial_kur >= kur_ub | trial_kur <= kur_lb;
+tempMat(:,badEpochIdx_kur_1round) = nan;
+trial_kur        = kurtosis(tempMat,1);
+kur_ub           = nanmean(trial_kur) + nanstd(trial_kur)*kur_b;
+kur_lb           = nanmean(trial_kur) - nanstd(trial_kur)*kur_b;
+badEpochIdx_kur_2round  = trial_kur >= kur_ub | trial_kur <= kur_lb;
+badEpochIdx_kur = badEpochIdx_kur_1round | badEpochIdx_kur_2round;
 
 fprintf('Computing skewness \n')
-trial_skew       = skewness(trial_dataMatrix,1);
-skew_ub          = mean(trial_skew) + std(trial_skew)*skew_b;
-skew_lb          = mean(trial_skew) - std(trial_skew)*skew_b;
-badEpochIdx_skew = trial_skew >= skew_ub | trial_skew <= skew_lb;
+tempMat       = trial_dataMatrix;
+trial_skew       = skewness(tempMat,1);
+skew_ub          = nanmean(trial_skew) + nanstd(trial_skew)*skew_b;
+skew_lb          = nanmean(trial_skew) - nanstd(trial_skew)*skew_b;
+badEpochIdx_skew_1round = trial_skew >= skew_ub | trial_skew <= skew_lb;
+tempMat(:,badEpochIdx_skew_1round) = nan;
+trial_skew        = skewness(tempMat,1);
+skew_ub           = nanmean(trial_skew) + nanstd(trial_skew)*skew_b;
+skew_lb           = nanmean(trial_skew) - nanstd(trial_skew)*skew_b;
+badEpochIdx_skew_2round  = trial_skew >= skew_ub | trial_skew <= skew_lb;
+badEpochIdx_skew = badEpochIdx_skew_1round | badEpochIdx_skew_2round;
 
 cpsFigure(1,.8); set(gca, 'FontSize', 20); hold on;
 plot(trial_var,'bo');

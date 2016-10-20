@@ -11,19 +11,29 @@ if ~exist('plotFig','var')
     plotFig = 1;
 end
 
-nepoch = size(dataMat,3);
-nchan  = size(dataMat,2);
-Mat    = nan(nchan,nepoch);
-
-diffMat = diff(dataMat, 1, 1) == 0;
-filter  = ones(windowsize,1)/windowsize;
-for epoch = 1:nepoch
-    tempMat  = double(squeeze(diffMat(:,:,epoch)));
-    diffmva  = conv2(filter,1, tempMat,'valid');
+if ndims(dataMat) == 3
+    nepoch = size(dataMat,3);
+    nchan  = size(dataMat,2);
+    Mat    = nan(nchan,nepoch);
+    
+    diffMat = diff(dataMat, 1, 1) == 0;
+    filter  = ones(windowsize,1)/windowsize;
+    for epoch = 1:nepoch
+        tempMat  = double(squeeze(diffMat(:,:,epoch)));
+        diffmva  = conv2(filter,1, tempMat,'valid');
+        satpoint = diffmva >= 1;
+        satchan  = sum(satpoint,1) ~= 0;
+        Mat(:,epoch) = satchan';
+    end
+elseif ismatrix(dataMat)
+    diffMat = diff(dataMat,1,1) == 0;
+    filter  = ones(windowsize,1)/windowsize;
+    diffmva  = conv2(filter,1, double(diffMat),'valid');
     satpoint = diffmva >= 1;
-    satchan  = sum(satpoint,1) ~= 0;
-    Mat(:,epoch) = satchan';
+    satchan  = mean(satpoint,1) >.01;
+    Mat = satchan';
 end
+    
 
 cpsFigure(1.5,1.2)
 imagesc(Mat)

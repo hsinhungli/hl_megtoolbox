@@ -18,15 +18,20 @@ if ~isfield(cfg,'maplimits')
     cfg.maplimits ='maxmin';
 end
 if ~isfield(cfg,'interpolation')
-    cfg.interpolation   = 'v4';
+    cfg.interpolation   = 'nearest';
 end
 if ~isfield(cfg,'holdon')
     cfg.holdon = 0;
 end
+if ~isfield(cfg,'colormap')
+    cfg.colormap = parula;
+end
 if notDefined('siz')
     siz = [.5 .5];
 end
-
+if iscolumn(sensor_data)
+    sensor_data = sensor_data';
+end
 cfg.data            = sensor_data';
 
 
@@ -40,7 +45,11 @@ if cfg.holdon == 1
 else
     cpsFigure(siz(1),siz(2));
 end
-topoplot(cfg,cfg.data)
+
+try
+topoplot(cfg,cfg.data);
+catch
+end
 
 % add a title if requested
 if exist('title_txt', 'var') && ~isempty(title_txt), title(title_txt,'FontSize',14); end
