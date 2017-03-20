@@ -1,10 +1,12 @@
 function hl_topoplot_2d(sensor_data,data_hdr,cfg,siz,title_txt)
 
 if notDefined('data_hdr')
-    data_hdr = load('hdr'); data_hdr = data_hdr.hdr;
+    data_hdr = load('data_hdr'); %data_hdr = data_hdr.hdr;
 end
-
-cfg.layout          = ft_prepare_layout(cfg, data_hdr);
+if notDefined('cfg')
+    cfg=[]; %data_hdr = data_hdr.hdr;
+end
+cfg.layout          = ft_prepare_layout(cfg, data_hdr.data_hdr);
 if ~isfield(cfg,'style')
     cfg.style ='straight';
 end

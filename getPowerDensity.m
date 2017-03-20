@@ -21,16 +21,16 @@ end
 N       = size(data,1);
 Nyquist = Fs/2;
 
-fx  = fft(data,padt)/N;                   %Scale by number of samples
-fre = linspace(0,1,padt/2+1) * Nyquist; %Frequency component corresponding to output of fft
-pds = 2*abs(fx(1:floor(padt/2+1),:,:)); %Multiply by 2 since only half the energy is in the positive half of the spectrum
-phs = angle(fx(1:floor(padt/2+1),:,:));
+fx  = fft(data)/N;                 %Scale by number of samples
+fre = linspace(0,1,N/2+1) * Nyquist; %Frequency component corresponding to output of fft
+pds = 2*abs(fx(1:floor(N/2+1),:,:)); %Multiply by 2 since only half the energy is in the positive half of the spectrum
+phs = angle(fx(1:floor(N/2+1),:,:));
 %fc  = 2*fx(1:N/2+1,:,:);
 
 resolution = fre(3) - fre(2);
 
-full_fre = [fre fliplr(fre(2:round(padt/2)))];
-assert(length(full_fre) == padt);
+full_fre = [fre fliplr(fre(2:round(N/2)))];
+%assert(length(full_fre) == padt);
 
 if ~isempty(tagFrequency)
     leakageIdx = nan(1,numel(tagFrequency));

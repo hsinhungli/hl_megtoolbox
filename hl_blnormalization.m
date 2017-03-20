@@ -1,4 +1,5 @@
 function data_normliazed = hl_blnormalization(data,time,int,type,dim)
+% data_normliazed = hl_blnormalization(data,time,int,type,dim)
 % This function take data as the data Matrix (e.g. MEG time-frequency time series), and do baseline normalization
 % By default, the first dimension of the data matrix should be time.
 % Otherwise, use optional input to assign the time dimension.
@@ -65,6 +66,6 @@ switch type
     case 1
         data_normliazed = bsxfun(@rdivide, bsxfun(@minus, data, bl), bl);
     case 2
-        data_normliazed = 10*log10( bsxfun(@rdivide, data, bl) );
+        data_normliazed = ( bsxfun(@rdivide, data, bl) );
 end
 

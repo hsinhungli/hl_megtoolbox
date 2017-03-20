@@ -25,7 +25,7 @@ hold on
 triggers = all_trigger(fileName, trigChans);
 trigTimes = triggers(:,1);
 
-plot(trigTimes, triggers(:,2), '.', 'MarkerSize', 30);
+plot(triggers(:,2), '.', 'MarkerSize', 30);
 xlabel('time')
 ylabel('triggers')
 if verbose

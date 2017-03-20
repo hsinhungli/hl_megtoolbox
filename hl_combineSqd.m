@@ -54,7 +54,7 @@ sqdToCombine = {};
 for iFile = 1:numel(sqdFiles)
     sqdName = sqdFiles(iFile).name;
     tagStr  = hl_getTag(sqdName, delimiter);
-    if ~isempty(strfind(tagStr,tag)) || strcmp(tag,'')
+    if strcmp(tagStr,tag) || strcmp(tag,'')
         sqdToCombine = [sqdToCombine, sqdName]; 
     end
 end

@@ -40,8 +40,8 @@ sd_grand_median = nanmedian(sd_median,3); % median across all channels
 bad_channels = squeeze(sd_median) < lb * sd_grand_median | squeeze(sd_median) > ub * sd_grand_median;
 bad_channels = find(bad_channels);
 figure;plot(sd_median(:),'-o'); hold on;
-plot([1 157],[5 * sd_grand_median 5 * sd_grand_median],'-');
-plot([1 157],[0.3 * sd_grand_median 0.3 * sd_grand_median],'-'); hold off;
+plot([1 157],[ub * sd_grand_median ub * sd_grand_median],'-');
+plot([1 157],[lb * sd_grand_median lb * sd_grand_median],'-'); hold off;
 
 
 

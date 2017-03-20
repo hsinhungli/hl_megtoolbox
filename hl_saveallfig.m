@@ -4,7 +4,7 @@ if nargin < 1
     error('Please give figure directory')
 end
 if nargin < 2
-    fprintf('Using default figure name')
+    fprintf('Using default figure name \n')
     use_default = 1;
 end
 if ~exist(figDir,'dir')
@@ -24,7 +24,7 @@ for iF = 1:nfig
     end
     temp_filename = sprintf('%s/%s',figDir,figNames{iF});
     figure(f(iF))
-    saveas(gcf,temp_filename,'eps')
+    saveas(gcf,temp_filename,'png')
 end
 close all
 drawnow;
