@@ -1,13 +1,13 @@
 function [badEpochIdx_var, badEpochIdx_kur, badEpochIdx_skew] = hl_trialvariance(dataMatrix, var_b, kur_b, skew_b)
-
+%keyboard;
 %% Check required inputs
 if size(dataMatrix,2) ~= 157
     error('check data matrix dimension: time x channels x epoch')
 end
-if exist('var_ub','var') == 0
+if exist('var_b','var') == 0
     var_b = 2;
 end
-if exist('kur_ub','var') == 0
+if exist('kur_b','var') == 0
     kur_b = 2;
 end
 if exist('skew_b','var') == 0
