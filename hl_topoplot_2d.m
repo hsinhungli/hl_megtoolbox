@@ -34,7 +34,7 @@ end
 if iscolumn(sensor_data)
     sensor_data = sensor_data';
 end
-cfg.data            = sensor_data';
+cfg.data = sensor_data';
 
 
 for ii = 1:length(cfg.data)

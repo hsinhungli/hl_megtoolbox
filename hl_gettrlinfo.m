@@ -1,5 +1,5 @@
 function [trl, triggerNumber] = hl_gettrlinfo(filename, trigChan, tstart, tend)
-
+%keyboard;
 info     = sqdread(filename,'Info');
 trigger  = all_trigger(filename, trigChan);
 %trigger  = hl_recoverTrig;

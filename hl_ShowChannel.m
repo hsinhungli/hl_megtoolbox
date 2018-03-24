@@ -7,7 +7,7 @@ temp = zeros(1,157);
 temp(chan) = 1;
 
 cfg.colorbar  = 'no';
-cfg.electrodes = 'on';
+cfg.electrodes = 'off';
 cfg.interpolation = 'nearest';
 cfg.maplimits = [0 1];
 if ~isfield(cfg,'holdon')
